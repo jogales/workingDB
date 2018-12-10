@@ -99,12 +99,16 @@ class EmployeeController extends Controller
         foreach ($employees as $key=>$value)
         {
             $data[] = array(
-                'job_id' => $value->job_id,
                 'name' => $value->name,
                 'phone' => $value->phone,
                 'salary' => $value->salary,
+                'job_id' => $value->job_id,
             );
         }
+        $job = Job::findOrFail($data[0]['job_id']);
+//        dd(json_decode($job));
+        $data[0]['job_id']=$job->name;
+//        dd($data);
         $dataCount = $this->conn->getCountEmployee();
         $json_data = array('recordsTotal' => $dataCount  , 'recordsFiltered' =>  $dataCount, 'data' =>  $data );
         return json_encode($json_data);

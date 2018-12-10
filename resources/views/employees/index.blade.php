@@ -46,10 +46,10 @@
                     "datatype": "json",
                 },
                 "columns": [
-                    {"data": "job_id", class: 'text-center'},
                     {"data": "name", class: 'text-truncate'},
                     {"data": "phone", class: 'text-center'},
                     {"data": "salary"},
+                    {"data": "job_id", class: 'text-center'},
                 ],
 
             })
