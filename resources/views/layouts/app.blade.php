@@ -33,9 +33,15 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <div class="dropdown p-1">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink-product" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sync
+                        </a>
 
-                    </ul>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{url('/productsFill')}}">Sync DB</a>
+                        </div>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -85,6 +91,7 @@
     <script type="text/javascript" charset="utf8" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
 
     @yield('footer-scripts')
+
 
 </body>
 </html>

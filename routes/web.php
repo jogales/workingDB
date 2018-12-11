@@ -19,10 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('job','JobController');
+Route::get('/productsFill','ProductController@syncDB');
 
-Route::resource('offices','OfficeController');
+Route::post('/productsTable','ProductController@fillTable');
 
-Route::resource('employees','EmployeeController');
+//Route::resource('job','JobController');
+//
+//Route::resource('offices','OfficeController');
+//
+//Route::resource('employees','EmployeeController');
 
-Route::post('/employeesFill','EmployeeController@fillTable');
+Route::resource('products','ProductController');
+
