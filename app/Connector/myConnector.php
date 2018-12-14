@@ -42,6 +42,12 @@ class myConnector
         return $emp;
     }
 
+    function getAllProductsDB()
+    {
+        $products = Product::all();
+        return json_decode($products);
+    }
+
     function getAllproducts($limit)
     {
         $products=$this->apicall('GET','/products?limit='.$limit);
@@ -101,7 +107,7 @@ class myConnector
 
     function syncProducts()
     {
-        $products = $this->getAllproducts(50);
+        $products = $this->getAllproducts(250);
         foreach ($products as $key=>$value)
         {
             $data[] = array(
@@ -128,12 +134,6 @@ class myConnector
         $prodaux = Product::find($product['id']);
         $cataux = Categories::find($product['categories']);
         $prodaux->categories()->attach($cataux);
-    }
-
-
-    function getAllProductDB()
-    {
-
     }
 
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Categories;
 use App\Connector\myConnector;
+use DemeterChain\C;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
@@ -21,7 +23,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = DB::table('categories')->take(12)->get();
+        return view('categories.index',compact('categories'));
     }
 
     /**
@@ -88,6 +91,13 @@ class CategoriesController extends Controller
     public function destroy(Categories $categories)
     {
         //
+    }
+
+    public function showProductsbyCateg($id)
+    {
+        $categories = Categories::find($id);
+        $results = $categories->products;
+        return view('categories.showProdbyCat',compact('results','categories'));
     }
 
 

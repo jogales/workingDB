@@ -31,3 +31,7 @@ Route::post('/productsTable','ProductController@fillTable');
 
 Route::resource('products','ProductController');
 
+Route::resource('categories','CategoriesController');
+
+Route::get('/showProdbyCat/{id}','CategoriesController@showProductsbyCateg');
+

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Connector\myConnector;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -21,8 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $aux = Product::find(19525);
-        dd($aux->categories);
+
         return view('products.index');
     }
 
@@ -94,30 +94,38 @@ class ProductController extends Controller
 
     public function fillTable()
     {
-        $aux = Product::find(19525);
-        dd($aux);
-        foreach ($aux->categories as $cat){
-            $dataa[] = $cat->title;
-        }
-        dd();
-        $products = Product::All();
+        $productsTotal = Product::All();
+        $products = DB::table('products')->skip(request('start'))->take(request('length'))->get();
         foreach ($products as $key=>$value)
         {
+            $fillCategory = $this->findCategory($value->id);
             $data[] = array(
                 'id' => $value->id,
                 'name' => $value->name,
                 'price' => $value->price,
+                'categories' => $fillCategory
             );
         }
-        $dataCount = count($products);
+        $dataCount = count($productsTotal);
         $json_data = array('recordsTotal' => $dataCount  , 'recordsFiltered' =>  $dataCount, 'data' =>  $data );
         return json_encode($json_data);
+    }
+
+    function findCategory($id)
+    {
+        $product = Product::find($id);
+        $titles = [];
+        foreach ($product->categories as $category){
+            $titles[] = $category->title;
+        }
+        return $titles;
     }
 
     public function syncDB()
     {
         $this->conn->syncCategories();
         $this->conn->syncProducts();
-        return view('products.index');
+        return redirect('/products');
+
     }
 }
